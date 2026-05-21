@@ -1,0 +1,12 @@
+data_ingestion:
+  bucket_name: dev-ar01
+  file_name: Hotel Reservations.csv
+  train_size: 0.8
+
+artifact_paths:
+  raw_data: artifacts/raw_data
+  processed_data: artifacts/processed_data
+  models: artifacts/models
+
+data_preprocessing:
+  num_features: 10
