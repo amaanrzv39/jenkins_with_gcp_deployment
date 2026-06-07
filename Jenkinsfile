@@ -2,6 +2,8 @@ pipeline{
     agent any
     environment{
         VENV_DIR = "venv"
+        GCP_PROJECT = "project-cd8d3620-549d-44e4-ba7"
+        GCLOUD_PATH = "/var/jenkins_home/google-cloud-sdk/bin"
     }
     stages{
         stage('Cloning github repo to jenkins workspace'){
@@ -22,6 +24,23 @@ pipeline{
                     pip install --upgrade pip
                     pip install -r requirements.txt
                     '''
+                }
+            }
+        }
+        stage('Building and pushing docker image to gcr'){
+            steps{
+                withCredentials([file(credentialsId: 'gcp-key', variable: 'GCP_KEY_FILE')]) {
+                    script{
+                        echo "Building and pushing docker image to gcr....."
+                        sh '''
+                        export PATH=$PATH:${GCLOUD_PATH}
+                        gcloud auth activate-service-account --key-file=${GCP_KEY_FILE}
+                        gcloud config set project ${GCP_PROJECT}
+                        gcloud auth configure docker --quiet
+                        docker build -t gcr.io/${GCP_PROJECT}/hotel-reservation-prediction:latest .
+                        docker push gcr.io/${GCP_PROJECT}/hotel-reservation-prediction:latest
+                        '''
+                    }
                 }
             }
         }
