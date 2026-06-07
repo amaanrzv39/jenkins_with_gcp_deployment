@@ -9,5 +9,4 @@ imbalanced-learn
 lightgbm
 mlflow
 flask
-gunicorn
 python-dotenv

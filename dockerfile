@@ -21,7 +21,7 @@ COPY . .
 RUN pip install --no-cache-dir -e .
 
 # Expose the port that Flask will run on
-EXPOSE 8080
+EXPOSE 5000
 
 # Command to run the app
-CMD ["gunicorn", "--bind", "0.0.0.0:8080", "app:app"]
+CMD ["python", "app.py"]
