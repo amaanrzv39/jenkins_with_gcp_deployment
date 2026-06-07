@@ -37,7 +37,7 @@ pipeline{
                         gcloud auth activate-service-account --key-file=${GOOGLE_APPLICATION_CREDENTIALS}
                         gcloud config set project ${GCP_PROJECT}
                         gcloud auth configure-docker --quiet
-                        gcloud builds submit -t gcr.io/${GCP_PROJECT}/hotel-reservation-prediction:latest .
+                        gcloud builds submit --tag gcr.io/${GCP_PROJECT}/hotel-reservation-prediction:latest .
                         '''
                     }
                 }
