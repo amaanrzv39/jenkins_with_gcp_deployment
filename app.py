@@ -13,6 +13,10 @@ app = Flask(__name__)
 config = read_yaml(CONFIG_PATH)
 loaded_model = pickle.load(open(config["artifact_paths"]["models"] + "/best_lgbm_model.pkl", "rb"))
 
+@app.route('/')
+def home():
+    return "Welcome to the Hotel Reservation Prediction API! Use the /predict endpoint to get predictions."
+
 @app.route('/predict',methods=['POST'])
 def predict():
         data = request.get_json()
