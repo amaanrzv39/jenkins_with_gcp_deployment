@@ -7,8 +7,7 @@ from config import CONFIG_PATH
 from src.utils import read_yaml
 from src.custom_exception import CustomException
 from src.logger import get_logger
-from dotenv import load_dotenv
-load_dotenv()
+
 
 logger = get_logger(__name__)
 
